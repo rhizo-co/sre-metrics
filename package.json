@@ -1,24 +1,31 @@
-
 {
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
+    "build": "tsc --noEmit && remix build",
     "dev": "remix dev",
-    "start": "remix-serve build"
+    "start": "remix-serve build",
+    "esbuild": "pnpm build && node esbuild.js",
+    "bundle": "pnpm esbuild && cp -r public remix.config.js dist && cd dist && zip -r - ./* > ../dist.zip"
   },
   "dependencies": {
+    "@google-cloud/functions-framework": "^3.1.2",
     "@remix-run/node": "*",
     "@remix-run/react": "*",
     "@remix-run/serve": "*",
+    "compression": "^1.7.4",
+    "express": "^4.18.1",
+    "memory-cache": "^0.2.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "remix-google-cloud-functions-adapter": "1.5.1"
   },
   "devDependencies": {
     "@remix-run/dev": "*",
     "@remix-run/eslint-config": "*",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.13",
+    "esbuild": "^0.14.38",
     "eslint": "^8.10.0",
     "typescript": "^4.7.4"
   },
