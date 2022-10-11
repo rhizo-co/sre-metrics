@@ -1,0 +1,15 @@
+node_modules
+
+.cache
+
+public/build
+build
+
+dist/
+!dist/package-lock.json
+!dist/README.md
+
+.env
+
+*.zip
+*.tgz
