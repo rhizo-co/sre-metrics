@@ -42,3 +42,8 @@ module "app" {
   source   = "../../app"
   settings = local.settings
 }
+
+module "metrics" {
+  source   = "../../metrics"
+  settings = local.settings
+}
