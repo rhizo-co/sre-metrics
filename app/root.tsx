@@ -15,6 +15,7 @@ import * as React from "react";
 import deleteMeRemixStyles from "~/styles/demos/remix.css";
 import globalStylesUrl from "~/styles/global.css";
 import darkStylesUrl from "~/styles/dark.css";
+import { Metrics } from "./metrics.server";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -116,9 +117,12 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
   );
 }
 
+const metrics = new Metrics();
+
 export function CatchBoundary() {
   const caught = useCatch();
 
+  metrics.putMetric("error", 1);
   let message;
   switch (caught.status) {
     case 401:
@@ -153,6 +157,9 @@ export function CatchBoundary() {
 
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
+  metrics.putMetric("errorCount", 1);
+  metrics.flush();
+
   return (
     <Document title="Error!">
       <Layout>
